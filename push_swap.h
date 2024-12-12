@@ -12,6 +12,18 @@ typedef struct s_stack
 	struct s_stack	*prev;
 }	t_stack;
 
+typedef struct s_operations
+{
+	char	*operation;
+	void	(*f)(t_stack *stack);
+}	t_operations;
+
+typedef struct a_validnumber
+{
+	int		valid;
+	long		number;
+}t_validnumber;
+
 //stack functions
 t_stack	*stk_new(int nbr);
 int	stk_add_front(t_stack *node, t_stack **stack, int *elements);
@@ -36,9 +48,9 @@ void	print_stack(t_stack *stack);
 void	free_stack(t_stack **stack, int stack_elem);
 int check_sorted(t_stack* stack, int stack_elem);
 int	check_duplicates(t_stack *stack, int stack_elem);
-int	populate_stack(char **matrix, t_stack **stack, int count, int *stack_elem);
-int	check_input(char* str);
-// void init_stack_struct(t_stack *stack);
+int	populate_stack(char **matrix, t_stack **stack, int *stack_elem);
+int	check_input(char** str);
+void free_matrix(char **matrix);
 
 char *ft_holy_joint(char **argv, int argc);
 #endif

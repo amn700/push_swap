@@ -8,6 +8,8 @@ t_stack *stk_new(int nbr)
     if (!new)
         return NULL;
     new->nbr = nbr;
+    new->next = new;
+    new->prev = new;
     return new;
 }
 
@@ -22,8 +24,6 @@ int stk_add_front(t_stack *node, t_stack **stack, int *elements)
     {
         *stack = node;
         *elements += 1;
-        // ft_printf("first node\n");
-        // ft_printf("elements: %i\n", *elements);
         return 1;
     }
     if (!(*stack)->next)
@@ -32,10 +32,8 @@ int stk_add_front(t_stack *node, t_stack **stack, int *elements)
         (*stack)->prev = node;
         node->prev = *stack;
         node->next = *stack;
-        node->index = 1;
+        (*stack)->index = 1;
         *elements += 1;
-        // ft_printf("second node\n");
-        // ft_printf("elements: %i\n", *elements);
         return 1;
     }
     temp = *stack;
@@ -45,7 +43,6 @@ int stk_add_front(t_stack *node, t_stack **stack, int *elements)
     node->prev = previous;
     node->next = (*stack);
     (*stack)->prev = node;
-    // ft_printf("extra node\n");
     *elements += 1;
     int i = 0;
     while (i < *elements)
@@ -54,7 +51,6 @@ int stk_add_front(t_stack *node, t_stack **stack, int *elements)
         temp = temp->next;
         i++;
     }
-    // ft_printf("elements: %i\n", *elements);
     return 1;
 }
 
