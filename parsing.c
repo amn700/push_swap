@@ -2,15 +2,21 @@
 //////////*parsing*//////////
 
 //check for valid input
-int check_input(char* str)
+int check_input(char **str)
 {
 	int i = 0;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
+	int j = 0;
 	while (str[i])
 	{
-		if(!ft_isdigit(str[i]))
-			return (0);
+		j = 0;
+		if (str[i][j] == '-' || str[i][j] == '+')
+			j++;
+		while (str[i][j])
+		{
+			if(!ft_isdigit(str[i][j]))
+				return (0);
+			j++;
+		}
 		i++;
 	}
 	return (1);
@@ -22,12 +28,6 @@ int populate_stack(char **matrix, t_stack **stack, int count, int *stack_elem)
 	int i = 1;
    	while (i < count)
 	{
-		if (!check_input(matrix[i]))
-		{
-			ft_printf("Error\n");
-			// return (free_stack(&stack, i), 0);
-			return 0;
-		}
 		if (!stk_add_front(stk_new(ft_atoi(matrix[i])), stack, stack_elem))
 		{
 			ft_printf("Error\n");
