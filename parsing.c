@@ -62,11 +62,8 @@ int populate_stack(char **matrix, t_stack **stack, int *stack_elem)
    	while (matrix[i])
 	{
 		number = ft_custom_atoi(matrix[i]);
-		if (!number.valid && !stk_add_front(stk_new(number.number), stack, stack_elem))
-		{
-			ft_printf("Error\n");
+		if (!number.valid || !stk_add_front(stk_new((int)number.number), stack, stack_elem))
 			return 0;
-		}
 		i++;
 	}
 	return (1);

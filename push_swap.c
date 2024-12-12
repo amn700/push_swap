@@ -10,6 +10,7 @@ int main (int argc, char **argv)
 		return (1);
 	t_stack *stack_a;
 	int stack_elem = 0;
+////////////////////////////////////////////////////////////////////////
 	// handle multiple argvs
 	char *string = ft_holy_joint(argv, argc);
 	if (!string)
@@ -22,7 +23,8 @@ int main (int argc, char **argv)
 	//handle invalid input
 	if (!check_input(matrix))
 		return (ft_printf("Error\n"), free_matrix(matrix), 1);
-
+////////////////////////////////////////////////////////////////////////
+	//populate the stack
 	if (!populate_stack(matrix, &stack_a, &stack_elem))
 	{
 		ft_printf("Error\n");
@@ -38,14 +40,15 @@ int main (int argc, char **argv)
 		ft_printf("Error\n");
 		return (1);
 	}
+	
 	//check if the stack is already sorted
 	if(!check_sorted(stack_a, stack_elem))
 	{
 		ft_printf("Not sorted\n");
+		// sort_list(&stack_a, stack_elem);
 		return (1);
 	}
 	ft_printf("Already sorted\n");
-	// sort_list(&stack_a, stack_elem);
 
 	print_stack(stack_a);
 	free_stack(&stack_a, stack_elem);
