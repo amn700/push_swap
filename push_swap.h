@@ -14,7 +14,7 @@ typedef struct s_stack
 
 //stack functions
 t_stack	*stk_new(int nbr);
-t_stack *stk_add_front(t_stack *node, t_stack **stack, int *elements);
+int	stk_add_front(t_stack *node, t_stack **stack, int *elements);
 void	stk_swap(t_stack *a, t_stack *b);
 void	stk_rotate(t_stack **stack);
 void	stk_rev_rotate(t_stack **stack);
@@ -32,4 +32,13 @@ void	r_rotate_a(t_stack **stacka);
 void	r_rotate_b(t_stack **stackb);
 void	r_rotate_rr(t_stack **stackb, t_stack **stacka);
 
+void	print_stack(t_stack *stack);
+void	free_stack(t_stack **stack, int stack_elem);
+int check_sorted(t_stack* stack, int stack_elem);
+int	check_duplicates(t_stack *stack, int stack_elem);
+int	populate_stack(char **matrix, t_stack **stack, int count, int *stack_elem);
+int	check_input(char* str);
+// void init_stack_struct(t_stack *stack);
+
+char *ft_holy_joint(char **argv, int argc);
 #endif

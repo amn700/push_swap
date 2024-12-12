@@ -6,7 +6,7 @@
 /*   By: mohchaib <mohchaib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 13:43:42 by mochaiba          #+#    #+#             */
-/*   Updated: 2024/11/11 11:41:41 by mohchaib         ###   ########.fr       */
+/*   Updated: 2024/12/12 01:44:20 by mohchaib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,7 @@ static int	populate(char **matrix, char *str, char c)
 		{
 			matrix[i] = ft_addstr(str, c);
 			if (!matrix[i])
-			{
-				free_matrix(matrix, i - 1);
-				return (0);
-			}
+				return (free_matrix(matrix, i - 1), 0);
 			i++;
 		}
 		while (*str != c && *str)

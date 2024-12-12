@@ -12,32 +12,50 @@ t_stack *stk_new(int nbr)
 }
 
 //functions to add a node to a stack
-
-t_stack *stk_add_front(t_stack *node, t_stack **stack, int *elements)
+int stk_add_front(t_stack *node, t_stack **stack, int *elements)
 {
-    if (!node || stack)
-        return NULL;
+    t_stack *previous;
+    t_stack *temp;
+    if (!node)
+        return 0;
     if (!(*stack))
     {
         *stack = node;
-        return (*stack);
+        *elements += 1;
+        // ft_printf("first node\n");
+        // ft_printf("elements: %i\n", *elements);
+        return 1;
     }
-    t_stack *previous = (*stack)->prev;
+    if (!(*stack)->next)
+    {
+        (*stack)->next = node;
+        (*stack)->prev = node;
+        node->prev = *stack;
+        node->next = *stack;
+        node->index = 1;
+        *elements += 1;
+        // ft_printf("second node\n");
+        // ft_printf("elements: %i\n", *elements);
+        return 1;
+    }
+    temp = *stack;
+    previous = (*stack)->prev;
     previous->next = node;
-    node->prev = previous;
 
+    node->prev = previous;
     node->next = (*stack);
     (*stack)->prev = node;
+    // ft_printf("extra node\n");
     *elements += 1;
     int i = 0;
-    t_stack *temp = *stack;
     while (i < *elements)
     {
         temp->index = i;
         temp = temp->next;
         i++;
     }
-    return (*stack);
+    // ft_printf("elements: %i\n", *elements);
+    return 1;
 }
 
 //functions to swap/reverse stack nodes
