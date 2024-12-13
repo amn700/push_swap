@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mohchaib <mohchaib@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/12 17:32:20 by mohchaib          #+#    #+#             */
+/*   Updated: 2024/12/12 17:32:20 by mohchaib         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PUSH_SWAP_H
 #define PUSH_SWAP_H
 
@@ -24,6 +36,8 @@ typedef struct a_validnumber
 	long		number;
 }t_validnumber;
 
+//parsing functions
+char	**param_parser(char **argv, int argc);
 //stack functions
 t_stack	*stk_new(int nbr);
 int	stk_add_front(t_stack *node, t_stack **stack, int *elements);
@@ -53,4 +67,8 @@ int	check_input(char** str);
 void free_matrix(char **matrix);
 
 char *ft_holy_joint(char **argv, int argc);
+t_validnumber	ft_custom_atoi(const char *nptr);
+char	**param_parser(char **argv, int argc);
+char *ft_holy_joint(char **argv, int argc);
+void    sort_list(t_stack **stack, int stack_elem);
 #endif

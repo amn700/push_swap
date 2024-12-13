@@ -1,7 +1,17 @@
-#include "push_swap.h"
-//////////*parsing*//////////
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mohchaib <mohchaib@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/12 17:36:00 by mohchaib          #+#    #+#             */
+/*   Updated: 2024/12/12 19:48:34 by mohchaib         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-//custom atoi function
+#include "push_swap.h"
+
 t_validnumber ft_custom_atoi(const char *nptr)
 {
 	int				sign;
@@ -31,7 +41,29 @@ t_validnumber ft_custom_atoi(const char *nptr)
 	return (total.valid = 1, total);
 }
 
-//check for valid input
+//dont touch it !!
+char *ft_holy_joint(char **argv, int argc)
+{
+	int i = 1;
+	char * temp;
+	char * str = ft_strdup("");
+	while (i < argc)
+	{
+		temp = ft_strjoin(str, argv[i++]);
+		if (!temp)
+			return (free(str), str = NULL, NULL);
+		free(str);
+		str = temp;
+
+		temp = ft_strjoin(str, " ");
+		if (!temp)
+			return (free(str), str = NULL, NULL);
+		free(str);
+		str = temp;
+	}
+	return (str);
+}
+
 int check_input(char **str)
 {
 	int	i;
@@ -54,77 +86,29 @@ int check_input(char **str)
 	return (1);
 }
 
-//create a stack out of argv
-int populate_stack(char **matrix, t_stack **stack, int *stack_elem)
+char    **param_parser(char **argv, int argc)
 {
-	int i = 0;
-	t_validnumber number;
-   	while (matrix[i])
-	{
-		number = ft_custom_atoi(matrix[i]);
-		if (!number.valid || !stk_add_front(stk_new((int)number.number), stack, stack_elem))
-			return 0;
-		i++;
-	}
-	return (1);
+    char    *string;
+    char    **matrix;
+
+    string = ft_holy_joint(argv, argc);
+    if (!string)
+        return (NULL);
+    matrix = ft_split((const char *)string, ' ');
+    if (!matrix)
+        return (NULL);
+    free(string);
+    if (!check_input(matrix))
+        return (free_matrix(matrix), NULL);
+    return (matrix);
 }
 
-//find duplicated argvs
-int check_duplicates(t_stack *stack, int stack_elem)
+//free the matrix
+void	free_matrix(char **matrix)
 {
-	t_stack *tmp = stack;
-	int i = 0;
-	int j;
-	stack = stack->next;
-	while (i < stack_elem - 1)
-	{
-		j = 0;
-		while (j < stack_elem -1)
-		{
-			if (tmp->nbr == stack->nbr)
-				return (0);
-			stack = stack->next;
-			j++;
-		}
-		tmp = tmp->next;
-		stack = tmp->next;
-		i++;
-	}
-	return (1);
-}
+	int	i;
 
-//free the stack
-void free_stack(t_stack **stack, int stack_elem)
-{
-	t_stack *tmp = *stack;
-	while (stack_elem > 0)
-	{
-		tmp = tmp->next;
-		free(*stack);
-		*stack = tmp;
-		stack_elem--;
-	}
-}
-
-//check if the stack is sorted
-int check_sorted(t_stack* stack, int stack_elem)
-{
-	t_stack *tmp = stack;
-	stack = stack->next;
-	while (stack_elem > 1)
-	{
-		if (tmp->nbr > stack->nbr)
-			return (0);
-		tmp = tmp->next;
-		stack = stack->next;
-		stack_elem--;
-	}
-	return (1);
-}
-
-void free_matrix(char **matrix)
-{
-	int i = 0;
+	i = 0;
 	while (matrix[i])
 		free(matrix[i++]);
 	free(matrix);
