@@ -24,15 +24,15 @@ typedef struct s_stack
 	struct s_stack	*prev;
 }	t_stack;
 
-typedef struct s_operations
+typedef struct s_cost
 {
-	char	*operation;
-	void	(*f)(t_stack *stack);
-}	t_operations;
+    int			cost;
+    int			forward;
+} t_cost;
 
 typedef struct a_validnumber
 {
-	int		valid;
+	int			valid;
 	long		number;
 }t_validnumber;
 
@@ -70,5 +70,14 @@ char *ft_holy_joint(char **argv, int argc);
 t_validnumber	ft_custom_atoi(const char *nptr);
 char	**param_parser(char **argv, int argc);
 char *ft_holy_joint(char **argv, int argc);
-void    sort_list(t_stack **stack, int stack_elem);
+void    sort_list(t_stack **stack_a,t_stack **stack_b, int stack_elem);
+void	sort_two(t_stack **stack);
+void	sort_three(t_stack **stack);
+void	sort_five(t_stack **stack_a,t_stack **stack_b, int stack_elem);
+int		find_smallest(t_stack *stack);
+int		find_largest(t_stack *stack);
+int		find_position(t_stack *stack, int number);
+t_cost	calculate_move_cost(int target_position, int stack_elem);
+void	rotate_to_top(t_stack **stack, int target_position, void (*rotate)(t_stack **stack), void (*reverse_rotate)(t_stack **stack));
+int		find_optimal_position(t_stack *stack, int number);
 #endif

@@ -6,7 +6,7 @@
 /*   By: mohchaib <mohchaib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 17:32:17 by mohchaib          #+#    #+#             */
-/*   Updated: 2024/12/13 02:10:22 by mohchaib         ###   ########.fr       */
+/*   Updated: 2024/12/13 07:12:23 by mohchaib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,15 @@ int	stk_add_front(t_stack *node, t_stack **stack, int *elements)
 	t_stack	*previous;
 	t_stack	*temp;
 	int		i;
-
 	if (!node)
 		return (0);
-	if (!(*stack))
+	if (*elements == 0)
 	{
 		*stack = node;
 		*elements += 1;
 		return (1);
 	}
-	if (!(*stack)->next)
+	if (*elements == 1)
 	{
 		(*stack)->next = node;
 		(*stack)->prev = node;
@@ -193,22 +192,4 @@ void	free_stack(t_stack **stack, int stack_elem)
 		*stack = tmp;
 		stack_elem--;
 	}
-}
-
-//check if the stack is sorted
-int	check_sorted(t_stack *stack, int stack_elem)
-{
-	t_stack	*tmp;
-
-	tmp = stack;
-	stack = stack->next;
-	while (stack_elem > 1)
-	{
-		if (tmp->nbr > stack->nbr)
-			return (0);
-		tmp = tmp->next;
-		stack = stack->next;
-		stack_elem--;
-	}
-	return (1);
 }

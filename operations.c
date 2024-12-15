@@ -6,7 +6,7 @@
 /*   By: mohchaib <mohchaib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 06:53:26 by marvin            #+#    #+#             */
-/*   Updated: 2024/12/12 17:32:10 by mohchaib         ###   ########.fr       */
+/*   Updated: 2024/12/13 08:06:14 by mohchaib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ void	swap_ss(t_stack *stacka, t_stack *stackb)
 //(pa,pb) take a node from the top of a stack and put it ontop of the other stack
 void	push_a(t_stack **stacka, t_stack **stackb, int *stack_elem)
 {
+	ft_printf("smt3\n");
 	if (!stk_add_front(*stacka, stackb, stack_elem))
 		return ;
+	ft_printf("smt4\n");
 	stk_delfirst(stacka, stack_elem);
 	ft_printf("pa\n");
 }
