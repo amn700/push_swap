@@ -6,7 +6,7 @@
 /*   By: mohchaib <mohchaib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 17:32:17 by mohchaib          #+#    #+#             */
-/*   Updated: 2024/12/13 07:12:23 by mohchaib         ###   ########.fr       */
+/*   Updated: 2024/12/16 09:42:01 by mohchaib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,45 +26,61 @@ t_stack	*stk_new(int nbr)
 	return (new);
 }
 
-//functions to add a node to a stack
-int	stk_add_front(t_stack *node, t_stack **stack, int *elements)
+void fix_index(t_stack **stack, int *elements)
+{
+	t_stack	*tmp;
+	int		i;
+
+	tmp = *stack;
+	i = 0;
+	while (i < *elements)
+	{
+		tmp->index = i;
+		tmp = tmp->next;
+		i++;
+	}
+}
+
+void first_node(t_stack *node, t_stack **stack, int *elements)
+{
+	*stack = node;
+	*elements += 1;
+}
+
+void second_node(t_stack *node, t_stack **stack, int *elements)
+{
+	(*stack)->prev = node;
+	(*stack)->next = node;
+	node->prev = *stack;
+	node->next = *stack;
+	node->index = 1;
+	*elements += 1;
+}
+
+void another_node(t_stack *node, t_stack **stack, int *elements)
 {
 	t_stack	*previous;
-	t_stack	*temp;
-	int		i;
-	if (!node)
-		return (0);
-	if (*elements == 0)
-	{
-		*stack = node;
-		*elements += 1;
-		return (1);
-	}
-	if (*elements == 1)
-	{
-		(*stack)->next = node;
-		(*stack)->prev = node;
-		node->prev = *stack;
-		node->next = *stack;
-		(*stack)->index = 1;
-		*elements += 1;
-		return (1);
-	}
-	temp = *stack;
+	
 	previous = (*stack)->prev;
 	previous->next = node;
 	node->prev = previous;
 	node->next = (*stack);
 	(*stack)->prev = node;
 	*elements += 1;
-	i = 0;
-	while (i < *elements)
-	{
-		temp->index = i;
-		temp = temp->next;
-		i++;
-	}
-	return (1);
+}
+
+//functions to add a node to a stack
+int		stk_add_front(t_stack *node, t_stack **stack, int *elements)
+{	
+	if (!node)
+		return (0);
+	if (*elements == 0)
+		return (first_node(node, stack, elements), 1);                                     
+	if (*elements == 1)
+		return (second_node(node, stack, elements), 1);
+	another_node(node, stack, elements);
+	
+	return (fix_index(stack, elements), 1);
 }
 
 //functions to swap/reverse stack nodes
@@ -121,21 +137,20 @@ void	stk_delfirst(t_stack **stack, int *stack_elem)
 }
 
 //print the stack
-void	print_stack(t_stack *stack)
+void	print_stack(t_stack *stack, int stack_elem)
 {
-	int	last;
+	int i = 0;
 
-	last = stack->prev->index;
-	while (stack->index < last)
+	while (i < stack_elem)
 	{
 		ft_printf("%i :%i\n", stack->index, stack->nbr);
 		stack = stack->next;
+		i++;
 	}
-	ft_printf("%i :%i\n", stack->index, stack->nbr);
 }
 
 //create a stack out of argv
-int	populate_stack(char **matrix, t_stack **stack, int *stack_elem)
+int		populate_stack(char **matrix, t_stack **stack, int *stack_elem)
 {
 	int				i;
 	t_validnumber	number;
@@ -153,7 +168,7 @@ int	populate_stack(char **matrix, t_stack **stack, int *stack_elem)
 }
 
 //find duplicated argvs
-int	check_duplicates(t_stack *stack, int stack_elem)
+int		check_duplicates(t_stack *stack, int stack_elem)
 {
 	t_stack	*tmp;
 	int		i;

@@ -6,7 +6,7 @@
 /*   By: mohchaib <mohchaib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 17:32:02 by mohchaib          #+#    #+#             */
-/*   Updated: 2024/12/13 09:50:44 by mohchaib         ###   ########.fr       */
+/*   Updated: 2024/12/16 09:49:05 by mohchaib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,47 +21,54 @@ void	sort_two(t_stack **stack)
 
 void	sort_three(t_stack **stack)
 {
+	if ((*stack)->nbr < (*stack)->next->nbr && (*stack)->nbr < (*stack)->next->next->nbr)
+	{
+		swap_a(*stack);
+		rotate_a(stack);
+	}
 	if ((*stack)->nbr > (*stack)->next->nbr && (*stack)->nbr > (*stack)->next->next->nbr)
 		rotate_a(stack);
 	if ((*stack)->nbr > (*stack)->next->nbr && (*stack)->nbr < (*stack)->next->next->nbr)
 		swap_a(*stack);
 	if ((*stack)->nbr < (*stack)->next->nbr && (*stack)->nbr > (*stack)->next->next->nbr)
 		r_rotate_a(stack);
-	if ((*stack)->nbr < (*stack)->next->nbr && (*stack)->nbr < (*stack)->next->next->nbr)
-	{
-		swap_a(*stack);
-		rotate_a(stack);
-	}
 }
 
-void	sort_five(t_stack **stack_a,t_stack **stack_b, int stack_elem)
+void	sort_five(t_stack **stack_a,t_stack **stack_b, int *stack_elem, int *b_elem)
 {
 	//max 11 moves
-	ft_printf("smt1\n");
-	push_a(stack_a, stack_b, &stack_elem); //1
-	push_a(stack_a, stack_b, &stack_elem); //2
+	(void)stack_elem;
 	ft_printf("smt2\n");
-	sort_three(stack_a);//max 2 moves
-	// figure out how to put the neeewly added element in the right place
-	//use math to determine what moves are needed
-	rotate_to_top(stack_a, find_optimal_position(*stack_a, (*stack_b)->nbr), rotate_a, r_rotate_a);
-	push_b(stack_a, stack_b, &stack_elem);// 1
-	rotate_to_top(stack_a, find_optimal_position(*stack_a, (*stack_b)->nbr), rotate_a, r_rotate_a);
-	push_b(stack_a, stack_b, &stack_elem);// 1
+	push_a(stack_a, stack_b, b_elem);
+	
+	// push_a(stack_a, stack_b, b_elem); 
+	// // ft_printf("smt2\n");
+	// sort_three(stack_a);//max 2 moves
+	// // ft_printf("smt2\n");
+	// // figure out how to put the neeewly added element in the right place
+	// //use math to determine what moves are needed
+	// rotate_to_top(stack_a, find_optimal_position(*stack_a, (*stack_b)->nbr), rotate_a, r_rotate_a);
+	// push_b(stack_a, stack_b, &stack_elem);// 1
+	// rotate_to_top(stack_a, find_optimal_position(*stack_a, (*stack_b)->nbr), rotate_a, r_rotate_a);
+	// push_b(stack_a, stack_b, &stack_elem);// 1
 	// figure out how to put the other element in the right place
 	return ;
 }
 
 
-void    sort_list(t_stack **stack_a, t_stack **stack_b, int stack_elem)
+void    sort_list(t_stack **stack_a, int *stack_elem)
 {
-	stack_elem +=1;
-	if (stack_elem == 2)
+	t_stack *stack_b;
+	int b_elem;
+
+	b_elem = 0;
+	ft_printf("smt1\n");
+	if (*stack_elem == 2)
 		return (sort_two(stack_a));
-	if (stack_elem == 3)
+	if (*stack_elem == 3)
 		return (sort_three(stack_a));
-	if (stack_elem == 5)
-		return (sort_five(stack_a, stack_b, stack_elem));
+	if (*stack_elem == 5)
+		return (sort_five(stack_a, &stack_b, stack_elem, &b_elem));
 	// 	while stack_a is not empty:
 	// choose a pivot value
 	// for each element in stack_a:

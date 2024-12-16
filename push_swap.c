@@ -6,7 +6,7 @@
 /*   By: mohchaib <mohchaib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 17:32:14 by mohchaib          #+#    #+#             */
-/*   Updated: 2024/12/13 09:50:26 by mohchaib         ###   ########.fr       */
+/*   Updated: 2024/12/16 06:51:34 by mohchaib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 int	main(int argc, char **argv)
 {
 	t_stack	*stack_a;
-	t_stack	*stack_b;
 	int		stack_elem;
 	char	**matrix;
 
@@ -39,11 +38,10 @@ int	main(int argc, char **argv)
 
 	if (!check_duplicates(stack_a, stack_elem))
 		return (ft_printf("Error\n"), 1);
-	ft_printf("%i\n", stack_elem);
-	ft_printf("%i\n", check_sorted(stack_a, stack_elem));
+	ft_printf("stack_elem: %i\n", stack_elem);
 	if (!check_sorted(stack_a, stack_elem))
-		sort_list(&stack_a, &stack_b, stack_elem);
-	print_stack(stack_a);
+		sort_list(&stack_a, stack_elem);
+	print_stack(stack_a, stack_elem);
 	free_stack(&stack_a, stack_elem);
 	return (0);
 }
