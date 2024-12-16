@@ -6,7 +6,7 @@
 /*   By: mohchaib <mohchaib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 17:32:17 by mohchaib          #+#    #+#             */
-/*   Updated: 2024/12/16 09:42:01 by mohchaib         ###   ########.fr       */
+/*   Updated: 2024/12/16 15:46:59 by mohchaib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,8 @@ void second_node(t_stack *node, t_stack **stack, int *elements)
 
 void another_node(t_stack *node, t_stack **stack, int *elements)
 {
-	t_stack	*previous;
-	
-	previous = (*stack)->prev;
-	previous->next = node;
-	node->prev = previous;
+	(*stack)->prev->next = node;
+	node->prev = (*stack)->prev;
 	node->next = (*stack);
 	(*stack)->prev = node;
 	*elements += 1;
@@ -128,11 +125,16 @@ void	stk_rev_rotate(t_stack **stack)
 	*stack = (*stack)->prev;
 }
 
-//function to delete a node from a stack
+//function to REMOVE the first node of a stack WITHOUT FREEING IT
 void	stk_delfirst(t_stack **stack, int *stack_elem)
 {
-	(*stack)->prev = (*stack)->next;
-	*stack = (*stack)->next;
+	t_stack	*tmp;
+
+	tmp = *stack;
+
+	tmp->prev->next = tmp->next;
+	tmp->next->prev = tmp->prev;
+	*stack = tmp->next;
 	*stack_elem -= 1;
 }
 

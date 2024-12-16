@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
 SRCS = operations.c parsing.c push_swap.c stack_functions.c algorithm.c search_stack.c 
 OBJS = $(SRCS:.c=.o)
 NAME = push_swap

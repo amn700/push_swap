@@ -49,8 +49,8 @@ void	stk_delfirst(t_stack **stack, int *stack_elem);
 void	swap_a(t_stack *stack);
 void	swap_b(t_stack *stack);
 void	swap_ss(t_stack *stacka, t_stack *stackb);
-void	push_a(t_stack **stacka, t_stack **stackb, int *stack_elem);
-void	push_b(t_stack **stacka, t_stack **stackb, int *stack_elem);
+void	push_a(t_stack **stacka, t_stack **stackb, int *a_elem, int *b_elem);
+void	push_b(t_stack **stacka, t_stack **stackb, int *a_elem, int *b_elem);
 void	rotate_a(t_stack **stacka);
 void	rotate_b(t_stack **stackb);
 void	rotate_rr(t_stack **stackb, t_stack **stacka);
@@ -80,4 +80,5 @@ int		find_position(t_stack *stack, int number);
 t_cost	calculate_move_cost(int target_position, int stack_elem);
 void	rotate_to_top(t_stack **stack, int target_position, void (*rotate)(t_stack **stack), void (*reverse_rotate)(t_stack **stack));
 int		find_optimal_position(t_stack *stack, int number);
+void fix_index(t_stack **stack, int *elements);
 #endif
