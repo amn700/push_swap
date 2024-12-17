@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   search_stack.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohchaib <mohchaib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 06:08:39 by mohchaib          #+#    #+#             */
-/*   Updated: 2024/12/13 08:02:16 by mohchaib         ###   ########.fr       */
+/*   Updated: 2024/12/17 12:27:30 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,20 @@ int		find_optimal_position(t_stack *stack, int number)
 	i = 0;
 	min = find_smallest(stack);
 	max = find_largest(stack);
+	ft_printf("min = %i\n", min);
+	ft_printf("max = %i\n", max);
+	ft_printf("number = %i\n", number);
 	last_index = stack->prev->index;
-	if (number < min || number > max)
+	// ft_printf("last index = %i\n", last_index);
+	if (number < min)
 		return (0);
+	else if (number > max)
+		return (last_index);
 	while (i <= last_index)
 	{
-		if (number > stack->nbr && number < stack->next->nbr)
-			return (i);
+		ft_printf("stack->nbr = %i\nstack->next->nbr = %i\n", stack->nbr, stack->next->nbr);
+		if (number > stack->nbr && number < stack->next->nbr) 
+			return (ft_printf("%i\n", i+1) ,i + 1);
 		stack = stack->next;
 		i++;
 	}
@@ -128,7 +135,8 @@ t_cost	calculate_move_cost(int target_position, int stack_elem)
 void rotate_to_top(t_stack **stack, int target_position, void (*rotate)(t_stack **stack), void (*reverse_rotate)(t_stack **stack))
 {
     t_cost cost = calculate_move_cost(target_position, (*stack)->prev->index);
-
+	ft_printf("cost : %i",cost.cost);
+	ft_printf("forward : %i",cost.forward);
     while (cost.cost--)
 	{
         if (cost.forward)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operations.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohchaib <mohchaib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 06:53:26 by marvin            #+#    #+#             */
-/*   Updated: 2024/12/16 15:41:53 by mohchaib         ###   ########.fr       */
+/*   Updated: 2024/12/17 11:24:21 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,14 @@ void	push_a(t_stack **stacka, t_stack **stackb, int *a_elem, int *b_elem)
 {
 	if (*b_elem == 0)
 		return ;
-	stk_add_front(*stacka, stackb, b_elem);
+	t_stack *tmp = *stackb;
 	stk_delfirst(stackb, b_elem);
 	fix_index(stackb, b_elem);
+	
+	stk_add_front(tmp, stacka, a_elem);
+	*stacka = tmp;
 	fix_index(stacka, a_elem);
+
 	ft_printf("pa\n");
 }
 
@@ -51,24 +55,14 @@ void	push_b(t_stack **stacka, t_stack **stackb, int *a_elem, int *b_elem)
 {
 	if (*a_elem == 0)
 		return ;
-	ft_printf("%i\n", *b_elem);
-	if (*b_elem == 1)
-	{
-		(*stackb)->next = *stackb;
-		(*stackb)->prev = *stackb;
-		// (*stackb)->index = 0;
-	}
-	stk_add_front(*stacka, stackb, b_elem);
+	t_stack *tmp = *stacka;
 	stk_delfirst(stacka, a_elem);
-	
-	ft_printf(">>>>>>>>>>>>>>>>>>>>>>1>>>>>>>>>>>>>>>>>>>>>\n");
-	ft_printf("A STACK\n");
 	fix_index(stacka, a_elem);
-	print_stack(*stacka, *a_elem);
-	ft_printf("B STACK\n");
+	
+	stk_add_front(tmp, stackb, b_elem);
+	*stackb = tmp;
 	fix_index(stackb, b_elem);
-	print_stack(*stackb, *b_elem);
-	ft_printf(">>>>>>>>>>>>>>>>>>>>>>>2>>>>>>>>>>>>>>>>>>>>\n");
+
 	ft_printf("pb\n");
 }
 

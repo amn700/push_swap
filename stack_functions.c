@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohchaib <mohchaib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 17:32:17 by mohchaib          #+#    #+#             */
-/*   Updated: 2024/12/16 15:46:59 by mohchaib         ###   ########.fr       */
+/*   Updated: 2024/12/17 11:21:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void fix_index(t_stack **stack, int *elements)
 void first_node(t_stack *node, t_stack **stack, int *elements)
 {
 	*stack = node;
+	(*stack)->prev = node;
+	(*stack)->next = node;
 	*elements += 1;
 }
 
@@ -53,7 +55,6 @@ void second_node(t_stack *node, t_stack **stack, int *elements)
 	(*stack)->next = node;
 	node->prev = *stack;
 	node->next = *stack;
-	node->index = 1;
 	*elements += 1;
 }
 
@@ -77,7 +78,7 @@ int		stk_add_front(t_stack *node, t_stack **stack, int *elements)
 		return (second_node(node, stack, elements), 1);
 	another_node(node, stack, elements);
 	
-	return (fix_index(stack, elements), 1);
+	return (1);
 }
 
 //functions to swap/reverse stack nodes

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algorithm.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohchaib <mohchaib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 17:32:02 by mohchaib          #+#    #+#             */
-/*   Updated: 2024/12/16 15:24:40 by mohchaib         ###   ########.fr       */
+/*   Updated: 2024/12/17 11:47:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,34 +36,51 @@ void	sort_three(t_stack **stack)
 
 void	sort_five(t_stack **stack_a,t_stack **stack_b, int *stack_elem, int *b_elem)
 {
-	ft_printf("A STACK starting point\n");
-	print_stack(*stack_a, *stack_elem);
-	ft_printf("B STACK\n");
-	print_stack(*stack_b, *b_elem);
-	ft_printf("------------------------------\n");
-	//max 11 moves
+	// ft_printf("A STACK starting point\n");
+	// print_stack(*stack_a, *stack_elem);
+	// ft_printf("B STACK\n");
+	// print_stack(*stack_b, *b_elem);
+	// ft_printf("------------------------------\n");
+	// //max 11 moves
 	push_b(stack_a, stack_b, stack_elem, b_elem);
 	// ft_printf("A STACK\n");
 	// print_stack(*stack_a, *stack_elem);
 	// ft_printf("B STACK\n");
 	// print_stack(*stack_b, *b_elem);
 	// ft_printf("------------------------------\n");
-	//max 11 moves
 	push_b(stack_a, stack_b, stack_elem, b_elem);
 	// ft_printf("A STACK\n");
 	// print_stack(*stack_a, *stack_elem);
 	// ft_printf("B STACK\n");
 	// print_stack(*stack_b, *b_elem);
-
-	// // ft_printf("smt2\n");
-	// sort_three(stack_a);//max 2 moves
-	// // ft_printf("smt2\n");
-	// // figure out how to put the neeewly added element in the right place
-	// //use math to determine what moves are needed
-	// rotate_to_top(stack_a, find_optimal_position(*stack_a, (*stack_b)->nbr), rotate_a, r_rotate_a);
-	// push_b(stack_a, stack_b, &stack_elem);// 1
-	// rotate_to_top(stack_a, find_optimal_position(*stack_a, (*stack_b)->nbr), rotate_a, r_rotate_a);
-	// push_b(stack_a, stack_b, &stack_elem);// 1
+	// ft_printf("------------------------------\n");
+	sort_three(stack_a);//max 2 moves
+	ft_printf("A STACK\n");
+	print_stack(*stack_a, *stack_elem);
+	ft_printf("B STACK\n");
+	print_stack(*stack_b, *b_elem);
+	ft_printf("------------------------------\n");
+	// // // figure out how to put the neeewly added element in the right place
+	// // //use math to determine what moves are needed
+	rotate_to_top(stack_a, find_optimal_position(*stack_a, (*stack_b)->nbr), rotate_a, r_rotate_a);
+	ft_printf("A STACK\n");
+	print_stack(*stack_a, *stack_elem);
+	ft_printf("B STACK\n");
+	print_stack(*stack_b, *b_elem);
+	ft_printf("------------------------------\n");
+	push_a(stack_a, stack_b, stack_elem, b_elem);
+	ft_printf("A STACK\n");
+	print_stack(*stack_a, *stack_elem);
+	ft_printf("B STACK\n");
+	print_stack(*stack_b, *b_elem);
+	ft_printf("------------------------------\n");
+	rotate_to_top(stack_a, find_optimal_position(*stack_a, (*stack_b)->nbr), rotate_a, r_rotate_a);
+	push_a(stack_a, stack_b, stack_elem, b_elem);
+	ft_printf("A STACK\n");
+	print_stack(*stack_a, *stack_elem);
+	ft_printf("B STACK\n");
+	print_stack(*stack_b, *b_elem);
+	ft_printf("------------------------------\n");
 	// figure out how to put the other element in the right place
 	return ;
 }
